@@ -1,0 +1,32 @@
+--- shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/libshaderc/CMakeLists.txt.orig	2018-10-26 20:30:58.662584981 +0200
++++ shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/libshaderc/CMakeLists.txt	2018-10-26 21:20:56.322550754 +0200
+@@ -15,6 +15,7 @@
+ target_include_directories(shaderc PUBLIC include PRIVATE ${glslang_SOURCE_DIR})
+ 
+ add_library(shaderc_shared SHARED ${SHADERC_SOURCES})
++set_target_properties(shaderc_shared PROPERTIES OUTPUT_NAME shaderc)
+ shaderc_default_compile_options(shaderc_shared)
+ target_include_directories(shaderc_shared PUBLIC include PRIVATE ${glslang_SOURCE_DIR})
+ target_compile_definitions(shaderc_shared
+--- shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/glslc/CMakeLists.txt.orig	2018-02-26 19:23:46.000000000 +0100
++++ shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/glslc/CMakeLists.txt	2018-10-26 21:22:00.139216692 +0200
+@@ -17,15 +17,13 @@
+ 
+ shaderc_default_compile_options(glslc)
+-target_include_directories(glslc PUBLIC ${glslang_SOURCE_DIR})
+-target_link_libraries(glslc PRIVATE glslang OSDependent OGLCompiler
+-  HLSL glslang SPIRV ${CMAKE_THREAD_LIBS_INIT})
+-target_link_libraries(glslc PRIVATE shaderc_util shaderc)
++target_include_directories(glslc PUBLIC ${glslang_SOURCE_DIR} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc_util/include)
++target_link_libraries(glslc PRIVATE shaderc_shared ${CMAKE_THREAD_LIBS_INIT})
+ 
+ add_executable(glslc_exe src/main.cc)
+ shaderc_default_compile_options(glslc_exe)
+-target_include_directories(glslc_exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/.. ${spirv-tools_SOURCE_DIR}/include)
++target_include_directories(glslc_exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc_util/include ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc/include ${spirv-tools_SOURCE_DIR}/include)
+ set_target_properties(glslc_exe PROPERTIES OUTPUT_NAME glslc)
+-target_link_libraries(glslc_exe PRIVATE glslc shaderc_util shaderc)
++target_link_libraries(glslc_exe PRIVATE glslc shaderc_shared shaderc_util SPIRV-Tools)
+ add_dependencies(glslc_exe build-version)
+ 
+ shaderc_add_tests(

@@ -1,0 +1,58 @@
+--- shaderc-3c85d2636607054666a0966486ea78e3a553b209/CMakeLists.txt.orig	2017-05-16 19:32:41.000000000 +0200
++++ shaderc-3c85d2636607054666a0966486ea78e3a553b209/CMakeLists.txt	2017-05-30 21:41:43.451874678 +0200
+@@ -46,7 +46,8 @@
+ 
+ # Configure subdirectories.
+ # We depend on these for later projects, so they should come first.
+-add_subdirectory(third_party)
++set(glslang_SOURCE_DIR /usr/include/glslang)
++set(spirv-tools_SOURCE_DIR /usr)
+ 
+ add_subdirectory(libshaderc_util)
+ add_subdirectory(libshaderc)
+@@ -57,5 +57,5 @@
+ add_custom_target(build-version
+   ${PYTHON_EXE}
+   ${CMAKE_CURRENT_SOURCE_DIR}/utils/update_build_version.py
+-  ${shaderc_SOURCE_DIR} ${spirv-tools_SOURCE_DIR} ${glslang_SOURCE_DIR}
++  ${shaderc_SOURCE_DIR}
+   COMMENT "Update build-version.inc in the Shaderc build directory (if necessary).")
+--- shaderc-3c85d2636607054666a0966486ea78e3a553b209/glslc/test/CMakeLists.txt.orig	2017-05-16 19:32:41.000000000 +0200
++++ shaderc-3c85d2636607054666a0966486ea78e3a553b209/glslc/test/CMakeLists.txt	2017-05-30 21:50:42.181868527 +0200
+@@ -5,6 +5,6 @@
+   add_test(NAME glslc_tests
+     COMMAND ${PYTHON_EXE}
+     ${CMAKE_CURRENT_SOURCE_DIR}/glslc_test_framework.py
+-    $<TARGET_FILE:glslc_exe> $<TARGET_FILE:spirv-dis>
++    $<TARGET_FILE:glslc_exe> spirv-dis
+     --test-dir ${CMAKE_CURRENT_SOURCE_DIR})
+ endif()
+--- shaderc-3c85d2636607054666a0966486ea78e3a553b209/utils/update_build_version.py.orig	2017-05-16 19:32:41.000000000 +0200
++++ shaderc-3c85d2636607054666a0966486ea78e3a553b209/utils/update_build_version.py	2017-05-30 21:58:02.445196831 +0200
+@@ -113,12 +113,12 @@
+ 
+ 
+ def main():
+-    if len(sys.argv) != 4:
+-        print('usage: {} <shaderc-dir> <spirv-tools-dir> <glslang-dir>'.format(
++    if len(sys.argv) != 2:
++        print('usage: {} <shaderc-dir>'.format(
+             sys.argv[0]))
+         sys.exit(1)
+ 
+-    projects = ['shaderc', 'spirv-tools', 'glslang']
++    projects = ['shaderc']
+     new_content = ''.join([
+         '"{}\\n"\n'.format(get_version_string(p, d))
+         for (p, d) in zip(projects, sys.argv[1:])
+--- shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/libshaderc/CMakeLists.txt.orig	2018-10-26 20:30:19.875918754 +0200
++++ shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/libshaderc/CMakeLists.txt	2018-10-26 20:30:36.765918565 +0200
+@@ -37,7 +37,7 @@
+ 
+ find_package(Threads)
+ set(SHADERC_LIBS
+-  glslang OSDependent OGLCompiler glslang ${CMAKE_THREAD_LIBS_INIT}
++  glslang OSDependent OGLCompiler HLSL glslang ${CMAKE_THREAD_LIBS_INIT}
+   shaderc_util
+   SPIRV # from glslang
+   SPIRV-Tools
