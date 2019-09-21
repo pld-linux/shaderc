@@ -2,17 +2,13 @@
 Summary:	Collection of tools, libraries and tests for shader compilation
 Summary(pl.UTF-8):	Zestaw narzędzi, bibliotek i testów do kompilacji shaderów
 Name:		shaderc
-# 2018.0 requires glslang >= 201803xx
-#Version:	2018.0
-Version:	0
-%define	snap	20180209
-%define	gitref	d1f763cc3742b93f0fc090493be8ba0588f296da
-Release:	0.%{snap}.1
+Version:	2019.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/google/shaderc/releases
-Source0:	https://github.com/google/shaderc/archive/%{gitref}/%{name}-%{snap}.tar.gz
-# Source0-md5:	95a05fcd88a242b2f391cf5d165171be
+Source0:	https://github.com/google/shaderc/archive/v%{version}.tar.gz
+# Source0-md5:	8eb2b40712db2762a5cc40b568fd8ad9
 #Source0:	https://github.com/google/shaderc/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-shared.patch
@@ -20,10 +16,10 @@ URL:		https://github.com/google/shaderc
 # for docs
 #BuildRequires:	asciidoctor
 BuildRequires:	cmake >= 2.8.12
-BuildRequires:	glslang-devel >= 3.0.s20180205
+BuildRequires:	glslang-devel >= 7.12.3352
 BuildRequires:	python >= 2
 BuildRequires:	spirv-tools
-BuildRequires:	spirv-tools-devel >= v2018.1-0.s20180210
+BuildRequires:	spirv-tools-devel >= 1:2019.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -83,7 +79,7 @@ Static shaderc libraries.
 Statyczne biblioteki shaderc.
 
 %prep
-%setup -q -n %{name}-%{gitref}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 
@@ -111,14 +107,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGES CONTRIBUTORS README.md  glslc/README.asciidoc
 %attr(755,root,root) %{_bindir}/glslc
-%attr(755,root,root) %{_libdir}/libshaderc.so
+%attr(755,root,root) %{_libdir}/libshaderc.so.1
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libshaderc.so
 %{_includedir}/shaderc
+%{_pkgconfigdir}/shaderc.pc
+%{_pkgconfigdir}/shaderc_combined.pc
+%{_pkgconfigdir}/shaderc_static.pc
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libshaderc.a
 %{_libdir}/libshaderc_combined.a
-%{_libdir}/libshaderc_util.a
