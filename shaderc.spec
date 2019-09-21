@@ -7,9 +7,9 @@ Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/google/shaderc/releases
+# TODO:		https://github.com/google/shaderc/archive/v%{version}/%{name}-%{version}.tar.gz
 Source0:	https://github.com/google/shaderc/archive/v%{version}.tar.gz
 # Source0-md5:	8eb2b40712db2762a5cc40b568fd8ad9
-#Source0:	https://github.com/google/shaderc/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-shared.patch
 URL:		https://github.com/google/shaderc
@@ -17,8 +17,9 @@ URL:		https://github.com/google/shaderc
 #BuildRequires:	asciidoctor
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	glslang-devel >= 7.12.3352
-BuildRequires:	python >= 2
-BuildRequires:	spirv-tools
+BuildRequires:	libstdc++-devel >= 6:4.7
+BuildRequires:	python3 >= 1:3
+BuildRequires:	spirv-tools >= 1:2019.4
 BuildRequires:	spirv-tools-devel >= 1:2019.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
