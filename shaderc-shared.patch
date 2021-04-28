@@ -8,17 +8,27 @@
  shaderc_default_compile_options(shaderc_shared)
  target_include_directories(shaderc_shared PUBLIC include PRIVATE ${glslang_SOURCE_DIR})
  target_compile_definitions(shaderc_shared
---- shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/glslc/CMakeLists.txt.orig	2018-02-26 19:23:46.000000000 +0100
-+++ shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/glslc/CMakeLists.txt	2018-10-26 21:22:00.139216692 +0200
-@@ -17,15 +17,13 @@
+--- shaderc-2021.0/glslc/CMakeLists.txt.orig	2021-04-28 18:26:01.925013098 +0200
++++ shaderc-2021.0/glslc/CMakeLists.txt	2021-04-28 18:34:04.012401406 +0200
+@@ -30,7 +30,7 @@
+ )
  
  shaderc_default_compile_options(glslc)
 -target_include_directories(glslc PUBLIC ${glslang_SOURCE_DIR})
--target_link_libraries(glslc PRIVATE glslang OSDependent OGLCompiler
--  HLSL glslang SPIRV ${CMAKE_THREAD_LIBS_INIT})
--target_link_libraries(glslc PRIVATE shaderc_util shaderc)
 +target_include_directories(glslc PUBLIC ${glslang_SOURCE_DIR} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc_util/include)
-+target_link_libraries(glslc PRIVATE shaderc_shared ${CMAKE_THREAD_LIBS_INIT})
+ 
+ if (SHADERC_ENABLE_WGSL_OUTPUT)
+   if (IS_DIRECTORY "${tint_SOURCE_DIR}/include")
+@@ -42,17 +42,14 @@
+   add_definitions(-DSHADERC_ENABLE_WGSL_OUTPUT=1)
+ endif(SHADERC_ENABLE_WGSL_OUTPUT)
+ 
+-target_link_libraries(glslc PRIVATE
+-  glslang OSDependent OGLCompiler HLSL glslang SPIRV    # Glslang libraries
+-  $<$<BOOL:${SHADERC_ENABLE_WGSL_OUTPUT}>:libtint>      # Tint libraries, optional
+-  shaderc_util shaderc                                  # internal Shaderc libraries
++target_link_libraries(glslc PRIVATE shaderc_shared
+   ${CMAKE_THREAD_LIBS_INIT})
  
  add_executable(glslc_exe src/main.cc)
  shaderc_default_compile_options(glslc_exe)
