@@ -1,6 +1,6 @@
---- shaderc-2019.1/CMakeLists.txt.orig	2020-01-22 21:15:53.000000000 +0100
-+++ shaderc-2019.1/CMakeLists.txt	2020-03-14 22:21:55.921268637 +0100
-@@ -92,7 +92,8 @@
+--- shaderc-2021.0/CMakeLists.txt.orig	2021-04-21 23:13:25.000000000 +0200
++++ shaderc-2021.0/CMakeLists.txt	2021-04-28 20:29:52.644518932 +0200
+@@ -112,7 +112,8 @@ endif(MSVC)
  
  # Configure subdirectories.
  # We depend on these for later projects, so they should come first.
@@ -8,9 +8,9 @@
 +set(glslang_SOURCE_DIR /usr/include/glslang)
 +set(spirv-tools_SOURCE_DIR /usr)
  
- if(SHADERC_ENABLE_SPVC)
- add_subdirectory(libshaderc_spvc)
-@@ -106,7 +107,7 @@
+ add_subdirectory(libshaderc_util)
+ add_subdirectory(libshaderc)
+@@ -124,7 +125,7 @@ endif()
  add_custom_target(build-version
    ${PYTHON_EXECUTABLE}
    ${CMAKE_CURRENT_SOURCE_DIR}/utils/update_build_version.py
@@ -19,11 +19,11 @@
    COMMENT "Update build-version.inc in the Shaderc build directory (if necessary).")
  
  function(define_pkg_config_file NAME LIBS)
---- shaderc-3c85d2636607054666a0966486ea78e3a553b209/glslc/test/CMakeLists.txt.orig	2017-05-16 19:32:41.000000000 +0200
-+++ shaderc-3c85d2636607054666a0966486ea78e3a553b209/glslc/test/CMakeLists.txt	2017-05-30 21:50:42.181868527 +0200
-@@ -5,6 +5,6 @@
+--- shaderc-2021.0/glslc/test/CMakeLists.txt.orig	2021-04-28 20:27:40.587616637 +0200
++++ shaderc-2021.0/glslc/test/CMakeLists.txt	2021-04-28 20:30:44.457227056 +0200
+@@ -23,6 +23,6 @@ if(${SHADERC_ENABLE_TESTS})
    add_test(NAME glslc_tests
-     COMMAND ${PYTHON_EXE}
+     COMMAND ${PYTHON_EXECUTABLE}
      ${CMAKE_CURRENT_SOURCE_DIR}/glslc_test_framework.py
 -    $<TARGET_FILE:glslc_exe> $<TARGET_FILE:spirv-dis>
 +    $<TARGET_FILE:glslc_exe> spirv-dis

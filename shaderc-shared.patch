@@ -1,13 +1,14 @@
---- shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/libshaderc/CMakeLists.txt.orig	2018-10-26 20:30:58.662584981 +0200
-+++ shaderc-d1f763cc3742b93f0fc090493be8ba0588f296da/libshaderc/CMakeLists.txt	2018-10-26 21:20:56.322550754 +0200
-@@ -15,6 +15,7 @@
- target_include_directories(shaderc PUBLIC include PRIVATE ${glslang_SOURCE_DIR})
+--- shaderc-2021.0/libshaderc/CMakeLists.txt.orig	2021-04-28 20:30:58.667969817 +0200
++++ shaderc-2021.0/libshaderc/CMakeLists.txt	2021-04-28 20:31:43.873665942 +0200
+@@ -41,7 +41,7 @@ target_compile_definitions(shaderc_share
+     PRIVATE SHADERC_IMPLEMENTATION
+     PUBLIC SHADERC_SHAREDLIB
+ )
+-set_target_properties(shaderc_shared PROPERTIES SOVERSION 1)
++set_target_properties(shaderc_shared PROPERTIES OUTPUT_NAME shaderc SOVERSION 1)
  
- add_library(shaderc_shared SHARED ${SHADERC_SOURCES})
-+set_target_properties(shaderc_shared PROPERTIES OUTPUT_NAME shaderc)
- shaderc_default_compile_options(shaderc_shared)
- target_include_directories(shaderc_shared PUBLIC include PRIVATE ${glslang_SOURCE_DIR})
- target_compile_definitions(shaderc_shared
+ if(SHADERC_ENABLE_INSTALL)
+   install(
 --- shaderc-2021.0/glslc/CMakeLists.txt.orig	2021-04-28 18:26:01.925013098 +0200
 +++ shaderc-2021.0/glslc/CMakeLists.txt	2021-04-28 18:34:04.012401406 +0200
 @@ -30,7 +30,7 @@
