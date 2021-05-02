@@ -41,3 +41,13 @@
  add_dependencies(glslc_exe build-version)
  
  shaderc_add_tests(
+--- shaderc-2021.0/CMakeLists.txt.orig	2021-05-02 21:59:17.590975179 +0200
++++ shaderc-2021.0/CMakeLists.txt	2021-05-02 22:00:32.646136904 +0200
+@@ -150,6 +150,6 @@
+   endif()
+ endfunction()
+ 
+-define_pkg_config_file(shaderc -lshaderc_shared)
++define_pkg_config_file(shaderc -lshaderc)
+ define_pkg_config_file(shaderc_static "-lshaderc ${EXTRA_STATIC_PKGCONFIG_LIBS} -lshaderc_util")
+ define_pkg_config_file(shaderc_combined -lshaderc_combined)
