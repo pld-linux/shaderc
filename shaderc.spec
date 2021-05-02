@@ -19,6 +19,7 @@ BuildRequires:	cmake >= 2.8.12
 BuildRequires:	glslang-devel >= 11.1
 BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	python3 >= 1:3
+BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	spirv-tools >= 1:2020.6
 BuildRequires:	spirv-tools-devel >= 1:2020.6
 %requires_ge	glslang
