@@ -2,25 +2,25 @@
 Summary:	Collection of tools, libraries and tests for shader compilation
 Summary(pl.UTF-8):	Zestaw narzędzi, bibliotek i testów do kompilacji shaderów
 Name:		shaderc
-Version:	2021.3
+Version:	2023.3
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
-#Source0Download: https://github.com/google/shaderc/releases
+#Source0Download: https://github.com/google/shaderc/tags
 Source0:	https://github.com/google/shaderc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	d35d7dda364d73c65fc82f3f4f917cdd
+# Source0-md5:	5149e2beb4501830218edd4cfab68db5
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-shared.patch
 URL:		https://github.com/google/shaderc
 # for docs
 #BuildRequires:	asciidoctor
-BuildRequires:	cmake >= 2.8.12
-BuildRequires:	glslang-devel >= 11.7.1
-BuildRequires:	libstdc++-devel >= 6:4.7
+BuildRequires:	cmake >= 3.17.2
+BuildRequires:	glslang-devel >= 12
+BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	python3 >= 1:3
 BuildRequires:	rpmbuild(macros) >= 1.605
-BuildRequires:	spirv-tools >= 1:2021.4
-BuildRequires:	spirv-tools-devel >= 1:2021.4
+BuildRequires:	spirv-tools >= 1:2022.4
+BuildRequires:	spirv-tools-devel >= 1:2022.4
 %requires_ge	glslang
 %requires_ge_to	spirv-tools-libs spirv-tools-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -87,12 +87,10 @@ Statyczne biblioteki shaderc.
 %patch1 -p1
 
 %build
-install -d build
-cd build
-%cmake .. \
+%cmake -B build \
 	-DSHADERC_SKIP_TESTS=ON
 
-%{__make}
+%{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
