@@ -3,7 +3,7 @@ Summary:	Collection of tools, libraries and tests for shader compilation
 Summary(pl.UTF-8):	Zestaw narzędzi, bibliotek i testów do kompilacji shaderów
 Name:		shaderc
 Version:	2023.3
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/google/shaderc/tags
@@ -88,6 +88,8 @@ Statyczne biblioteki shaderc.
 
 %build
 %cmake -B build \
+	-DCMAKE_INSTALL_INCLUDEDIR=include \
+	-DCMAKE_INSTALL_LIBDIR=%{_lib} \
 	-DSHADERC_SKIP_TESTS=ON
 
 %{__make} -C build
