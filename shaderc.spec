@@ -2,13 +2,13 @@
 Summary:	Collection of tools, libraries and tests for shader compilation
 Summary(pl.UTF-8):	Zestaw narzędzi, bibliotek i testów do kompilacji shaderów
 Name:		shaderc
-Version:	2023.3
-Release:	2
+Version:	2023.8
+Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/google/shaderc/tags
 Source0:	https://github.com/google/shaderc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	5149e2beb4501830218edd4cfab68db5
+# Source0-md5:	28051b01db5b263f015ad363977ba610
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-shared.patch
 URL:		https://github.com/google/shaderc
@@ -85,6 +85,9 @@ Statyczne biblioteki shaderc.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+
+# open(..., errors='replace') requires Python 3
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' utils/update_build_version.py
 
 %build
 %cmake -B build \
