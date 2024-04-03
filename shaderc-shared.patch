@@ -1,16 +1,17 @@
---- shaderc-2021.0/libshaderc/CMakeLists.txt.orig	2021-04-28 20:30:58.667969817 +0200
-+++ shaderc-2021.0/libshaderc/CMakeLists.txt	2021-04-28 20:31:43.873665942 +0200
-@@ -41,7 +41,7 @@ target_compile_definitions(shaderc_share
-     PRIVATE SHADERC_IMPLEMENTATION
-     PUBLIC SHADERC_SHAREDLIB
- )
--set_target_properties(shaderc_shared PROPERTIES SOVERSION 1)
-+set_target_properties(shaderc_shared PROPERTIES OUTPUT_NAME shaderc SOVERSION 1)
+diff -urNp -x '*.orig' shaderc-2024.0.org/CMakeLists.txt shaderc-2024.0/CMakeLists.txt
+--- shaderc-2024.0.org/CMakeLists.txt	2024-04-04 01:12:49.909224636 +0200
++++ shaderc-2024.0/CMakeLists.txt	2024-04-04 01:12:49.953225227 +0200
+@@ -158,6 +158,6 @@ function(define_pkg_config_file NAME LIB
+   endif()
+ endfunction()
  
- if(SHADERC_ENABLE_INSTALL)
-   install(
---- shaderc-2023.8/glslc/CMakeLists.txt.orig	2024-01-03 18:45:00.000000000 +0100
-+++ shaderc-2023.8/glslc/CMakeLists.txt	2024-02-18 10:19:55.923036871 +0100
+-define_pkg_config_file(shaderc -lshaderc_shared)
++define_pkg_config_file(shaderc -lshaderc)
+ define_pkg_config_file(shaderc_static "-lshaderc ${EXTRA_STATIC_PKGCONFIG_LIBS} -lshaderc_util")
+ define_pkg_config_file(shaderc_combined -lshaderc_combined)
+diff -urNp -x '*.orig' shaderc-2024.0.org/glslc/CMakeLists.txt shaderc-2024.0/glslc/CMakeLists.txt
+--- shaderc-2024.0.org/glslc/CMakeLists.txt	2024-03-08 19:52:40.000000000 +0100
++++ shaderc-2024.0/glslc/CMakeLists.txt	2024-04-04 01:12:49.953225227 +0200
 @@ -30,7 +30,7 @@ add_library(glslc STATIC
  )
  
@@ -40,13 +41,15 @@
  add_dependencies(glslc_exe build-version)
  
  shaderc_add_tests(
---- shaderc-2021.0/CMakeLists.txt.orig	2021-05-02 21:59:17.590975179 +0200
-+++ shaderc-2021.0/CMakeLists.txt	2021-05-02 22:00:32.646136904 +0200
-@@ -150,6 +150,6 @@
-   endif()
- endfunction()
+diff -urNp -x '*.orig' shaderc-2024.0.org/libshaderc/CMakeLists.txt shaderc-2024.0/libshaderc/CMakeLists.txt
+--- shaderc-2024.0.org/libshaderc/CMakeLists.txt	2024-03-08 19:52:40.000000000 +0100
++++ shaderc-2024.0/libshaderc/CMakeLists.txt	2024-04-04 01:12:49.953225227 +0200
+@@ -41,7 +41,7 @@ target_compile_definitions(shaderc_share
+     PRIVATE SHADERC_IMPLEMENTATION
+     PUBLIC SHADERC_SHAREDLIB
+ )
+-set_target_properties(shaderc_shared PROPERTIES SOVERSION 1)
++set_target_properties(shaderc_shared PROPERTIES OUTPUT_NAME shaderc SOVERSION 1)
  
--define_pkg_config_file(shaderc -lshaderc_shared)
-+define_pkg_config_file(shaderc -lshaderc)
- define_pkg_config_file(shaderc_static "-lshaderc ${EXTRA_STATIC_PKGCONFIG_LIBS} -lshaderc_util")
- define_pkg_config_file(shaderc_combined -lshaderc_combined)
+ if(SHADERC_ENABLE_INSTALL)
+   install(

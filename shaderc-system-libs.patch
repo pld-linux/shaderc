@@ -1,6 +1,7 @@
---- shaderc-2021.0/CMakeLists.txt.orig	2021-04-21 23:13:25.000000000 +0200
-+++ shaderc-2021.0/CMakeLists.txt	2021-04-28 20:29:52.644518932 +0200
-@@ -112,7 +112,8 @@ endif(MSVC)
+diff -urNp -x '*.orig' shaderc-2024.0.org/CMakeLists.txt shaderc-2024.0/CMakeLists.txt
+--- shaderc-2024.0.org/CMakeLists.txt	2024-03-08 19:52:40.000000000 +0100
++++ shaderc-2024.0/CMakeLists.txt	2024-04-04 01:12:30.772967746 +0200
+@@ -120,7 +120,8 @@ endif(MSVC)
  
  # Configure subdirectories.
  # We depend on these for later projects, so they should come first.
@@ -10,28 +11,30 @@
  
  add_subdirectory(libshaderc_util)
  add_subdirectory(libshaderc)
-@@ -124,7 +125,7 @@ endif()
+@@ -132,7 +133,7 @@ endif()
  add_custom_target(build-version
-   ${PYTHON_EXECUTABLE}
+   ${Python_EXECUTABLE}
    ${CMAKE_CURRENT_SOURCE_DIR}/utils/update_build_version.py
 -  ${shaderc_SOURCE_DIR} ${spirv-tools_SOURCE_DIR} ${glslang_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/build-version.inc
 +  ${shaderc_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/build-version.inc
    COMMENT "Update build-version.inc in the Shaderc build directory (if necessary).")
  
  function(define_pkg_config_file NAME LIBS)
---- shaderc-2021.0/glslc/test/CMakeLists.txt.orig	2021-04-28 20:27:40.587616637 +0200
-+++ shaderc-2021.0/glslc/test/CMakeLists.txt	2021-04-28 20:30:44.457227056 +0200
+diff -urNp -x '*.orig' shaderc-2024.0.org/glslc/test/CMakeLists.txt shaderc-2024.0/glslc/test/CMakeLists.txt
+--- shaderc-2024.0.org/glslc/test/CMakeLists.txt	2024-03-08 19:52:40.000000000 +0100
++++ shaderc-2024.0/glslc/test/CMakeLists.txt	2024-04-04 01:12:30.772967746 +0200
 @@ -23,6 +23,6 @@ if(${SHADERC_ENABLE_TESTS})
    add_test(NAME glslc_tests
-     COMMAND ${PYTHON_EXECUTABLE}
+     COMMAND ${Python_EXECUTABLE}
      ${CMAKE_CURRENT_SOURCE_DIR}/glslc_test_framework.py
 -    $<TARGET_FILE:glslc_exe> $<TARGET_FILE:spirv-dis>
 +    $<TARGET_FILE:glslc_exe> spirv-dis
      --test-dir ${CMAKE_CURRENT_SOURCE_DIR})
  endif()
---- shaderc-2019.1/utils/update_build_version.py.orig	2020-03-14 22:19:00.495552333 +0100
-+++ shaderc-2019.1/utils/update_build_version.py	2020-03-14 22:22:37.814375016 +0100
-@@ -128,18 +128,18 @@
+diff -urNp -x '*.orig' shaderc-2024.0.org/utils/update_build_version.py shaderc-2024.0/utils/update_build_version.py
+--- shaderc-2024.0.org/utils/update_build_version.py	2024-03-08 19:52:40.000000000 +0100
++++ shaderc-2024.0/utils/update_build_version.py	2024-04-04 01:12:30.772967746 +0200
+@@ -128,18 +128,18 @@ def get_version_string(project, director
  
  
  def main():
