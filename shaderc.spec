@@ -2,25 +2,25 @@
 Summary:	Collection of tools, libraries and tests for shader compilation
 Summary(pl.UTF-8):	Zestaw narzędzi, bibliotek i testów do kompilacji shaderów
 Name:		shaderc
-Version:	2024.0
+Version:	2025.1
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/google/shaderc/tags
 Source0:	https://github.com/google/shaderc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	c29fbe8f3c10fc0097e04327e1f64a73
+# Source0-md5:	bf8395076fccc60c891b719d878385f0
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-shared.patch
 URL:		https://github.com/google/shaderc
-# for docs
+# to generate README.html from glslc/README.asciidoc (using `make glslc_doc-README` command)
 #BuildRequires:	asciidoctor
 BuildRequires:	cmake >= 3.17.2
 BuildRequires:	glslang-devel >= 12
 BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	python3 >= 1:3
 BuildRequires:	rpmbuild(macros) >= 1.605
-BuildRequires:	spirv-tools >= 1:2022.4
-BuildRequires:	spirv-tools-devel >= 1:2022.4
+BuildRequires:	spirv-tools >= 1:2025.1
+BuildRequires:	spirv-tools-devel >= 1:2025.1
 %requires_ge	glslang
 %requires_ge_to	spirv-tools-libs spirv-tools-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
