@@ -83,8 +83,8 @@ Statyczne biblioteki shaderc.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # open(..., errors='replace') requires Python 3
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' utils/update_build_version.py
