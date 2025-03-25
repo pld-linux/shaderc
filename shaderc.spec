@@ -14,8 +14,8 @@ Patch1:		%{name}-shared.patch
 URL:		https://github.com/google/shaderc
 # to generate README.html from glslc/README.asciidoc (using `make glslc_doc-README` command)
 #BuildRequires:	asciidoctor
-BuildRequires:	cmake >= 3.17.2
-BuildRequires:	glslang-devel >= 12
+BuildRequires:	cmake >= 3.22.1
+BuildRequires:	glslang-devel >= 15.1.0
 BuildRequires:	libstdc++-devel >= 6:7
 BuildRequires:	python3 >= 1:3
 BuildRequires:	rpmbuild(macros) >= 1.605
