@@ -9,9 +9,8 @@ diff -urNp -x '*.orig' shaderc-2024.0.org/CMakeLists.txt shaderc-2024.0/CMakeLis
 +define_pkg_config_file(shaderc -lshaderc)
  define_pkg_config_file(shaderc_static "-lshaderc ${EXTRA_STATIC_PKGCONFIG_LIBS} -lshaderc_util")
  define_pkg_config_file(shaderc_combined -lshaderc_combined)
-diff -urNp -x '*.orig' shaderc-2024.0.org/glslc/CMakeLists.txt shaderc-2024.0/glslc/CMakeLists.txt
---- shaderc-2024.0.org/glslc/CMakeLists.txt	2024-03-08 19:52:40.000000000 +0100
-+++ shaderc-2024.0/glslc/CMakeLists.txt	2024-04-04 01:12:49.953225227 +0200
+--- shaderc-2025.3/glslc/CMakeLists.txt.orig	2025-06-24 23:18:01.000000000 +0200
++++ shaderc-2025.3/glslc/CMakeLists.txt	2025-07-24 07:15:25.302682326 +0200
 @@ -30,7 +30,7 @@ add_library(glslc STATIC
  )
  
@@ -21,7 +20,7 @@ diff -urNp -x '*.orig' shaderc-2024.0.org/glslc/CMakeLists.txt shaderc-2024.0/gl
  
  if (SHADERC_ENABLE_WGSL_OUTPUT)
    if (IS_DIRECTORY "${tint_SOURCE_DIR}/include")
-@@ -43,16 +43,14 @@ if (SHADERC_ENABLE_WGSL_OUTPUT)
+@@ -43,17 +43,15 @@ if (SHADERC_ENABLE_WGSL_OUTPUT)
  endif(SHADERC_ENABLE_WGSL_OUTPUT)
  
  target_link_libraries(glslc PRIVATE
@@ -31,16 +30,17 @@ diff -urNp -x '*.orig' shaderc-2024.0.org/glslc/CMakeLists.txt shaderc-2024.0/gl
 +  shaderc_shared
    ${CMAKE_THREAD_LIBS_INIT})
  
- add_executable(glslc_exe src/main.cc)
- shaderc_default_compile_options(glslc_exe)
--target_include_directories(glslc_exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/.. ${spirv-tools_SOURCE_DIR}/include)
-+target_include_directories(glslc_exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc_util/include ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc/include ${spirv-tools_SOURCE_DIR}/include)
- set_target_properties(glslc_exe PROPERTIES OUTPUT_NAME glslc)
--target_link_libraries(glslc_exe PRIVATE glslc shaderc_util shaderc)
-+target_link_libraries(glslc_exe PRIVATE glslc shaderc_shared shaderc_util SPIRV-Tools)
- add_dependencies(glslc_exe build-version)
+ if(SHADERC_ENABLE_EXECUTABLES)
+   add_executable(glslc_exe src/main.cc)
+   shaderc_default_compile_options(glslc_exe)
+-  target_include_directories(glslc_exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/.. ${spirv-tools_SOURCE_DIR}/include)
++  target_include_directories(glslc_exe PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc_util/include ${CMAKE_CURRENT_SOURCE_DIR}/../libshaderc/include ${spirv-tools_SOURCE_DIR}/include)
+   set_target_properties(glslc_exe PROPERTIES OUTPUT_NAME glslc)
+-  target_link_libraries(glslc_exe PRIVATE glslc shaderc_util shaderc)
++  target_link_libraries(glslc_exe PRIVATE glslc shaderc_shared shaderc_util SPIRV-Tools)
+   add_dependencies(glslc_exe build-version)
+ endif(SHADERC_ENABLE_EXECUTABLES)
  
- shaderc_add_tests(
 diff -urNp -x '*.orig' shaderc-2024.0.org/libshaderc/CMakeLists.txt shaderc-2024.0/libshaderc/CMakeLists.txt
 --- shaderc-2024.0.org/libshaderc/CMakeLists.txt	2024-03-08 19:52:40.000000000 +0100
 +++ shaderc-2024.0/libshaderc/CMakeLists.txt	2024-04-04 01:12:49.953225227 +0200

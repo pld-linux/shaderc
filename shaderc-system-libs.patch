@@ -20,16 +20,16 @@ diff -urNp -x '*.orig' shaderc-2024.0.org/CMakeLists.txt shaderc-2024.0/CMakeLis
    COMMENT "Update build-version.inc in the Shaderc build directory (if necessary).")
  
  function(define_pkg_config_file NAME LIBS)
-diff -urNp -x '*.orig' shaderc-2024.0.org/glslc/test/CMakeLists.txt shaderc-2024.0/glslc/test/CMakeLists.txt
---- shaderc-2024.0.org/glslc/test/CMakeLists.txt	2024-03-08 19:52:40.000000000 +0100
-+++ shaderc-2024.0/glslc/test/CMakeLists.txt	2024-04-04 01:12:30.772967746 +0200
-@@ -23,6 +23,6 @@ if(${SHADERC_ENABLE_TESTS})
+--- shaderc-2025.3/glslc/test/CMakeLists.txt.orig	2025-06-24 23:18:01.000000000 +0200
++++ shaderc-2025.3/glslc/test/CMakeLists.txt	2025-07-24 07:12:51.370182917 +0200
+@@ -24,7 +24,7 @@ if(${SHADERC_ENABLE_TESTS})
    add_test(NAME glslc_tests
      COMMAND ${Python_EXECUTABLE}
      ${CMAKE_CURRENT_SOURCE_DIR}/glslc_test_framework.py
 -    $<TARGET_FILE:glslc_exe> $<TARGET_FILE:spirv-dis>
 +    $<TARGET_FILE:glslc_exe> spirv-dis
      --test-dir ${CMAKE_CURRENT_SOURCE_DIR})
+     
  endif()
 diff -urNp -x '*.orig' shaderc-2024.0.org/utils/update_build_version.py shaderc-2024.0/utils/update_build_version.py
 --- shaderc-2024.0.org/utils/update_build_version.py	2024-03-08 19:52:40.000000000 +0100
