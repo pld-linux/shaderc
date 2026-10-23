@@ -2,13 +2,13 @@
 Summary:	Collection of tools, libraries and tests for shader compilation
 Summary(pl.UTF-8):	Zestaw narzędzi, bibliotek i testów do kompilacji shaderów
 Name:		shaderc
-Version:	2025.3
+Version:	2026.4
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: https://github.com/google/shaderc/tags
 Source0:	https://github.com/google/shaderc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	c110401f6e36ee234008b4cabe991ee0
+# Source0-md5:	82ad54deb32ef6162410a8f117381eb3
 Patch0:		%{name}-system-libs.patch
 Patch1:		%{name}-shared.patch
 URL:		https://github.com/google/shaderc
@@ -113,11 +113,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGES CONTRIBUTORS README.md  glslc/README.asciidoc
 %attr(755,root,root) %{_bindir}/glslc
-%attr(755,root,root) %{_libdir}/libshaderc.so.1
+%{_libdir}/libshaderc.so.1
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libshaderc.so
+%{_libdir}/libshaderc.so
 %{_includedir}/shaderc
 %{_pkgconfigdir}/shaderc.pc
 %{_pkgconfigdir}/shaderc_combined.pc
